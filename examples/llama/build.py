@@ -182,6 +182,13 @@ def parse_arguments(cmd_args=None):
     parser.add_argument('--max_beam_width', type=int, default=1)
     parser.add_argument('--rotary_base', type=float, default=10000.0)
     parser.add_argument('--rotary_scaling', nargs=2, type=str, default=None)
+    # https://github.com/NVIDIA/TensorRT-LLM/issues/864
+    parser.add_argument(
+        '--use_paged_context_fmha',
+        action='store_true',
+        help=
+        'Activates paged context FMHA. This mode of the context FMHA is required for chunked context, speculative decoding and reuse of KV cache blocks. Context FMHA performance is worse when this mode is on.'
+    )
     parser.add_argument('--use_gpt_attention_plugin',
                         nargs='?',
                         const='float16',
